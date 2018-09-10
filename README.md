@@ -26,7 +26,6 @@ This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://w
 
 ### Inspiration
 
-
 [MDN sw code]https://github.com/mdn/sw-test/blob/gh-pages/sw.js#L2
 [MDN demo]https://mdn.github.io/sw-test/
 [Wittr]https://github.com/jakearchibald/wittr/
