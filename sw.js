@@ -4,6 +4,7 @@ self.addEventListener('install', function(event) {
 
   event.waitUntil(
     caches.open(staticCache).then(function(cache) {
+      //activate
       return cache.addAll([
         '/',
         '/index.html',
@@ -27,23 +28,7 @@ self.addEventListener('install', function(event) {
     })
   );
 });
-
-/*self.addEventListener('activate', function(event) {
-  console.log('activated');*/
-  /*event.waitUntil(
-    caches.keys().then(function(cacheNames) {
-      return Promise.all(
-        cacheNames.filter(function(cacheName) {
-          return cacheName.startsWith('restaurants-') &&
-                 cacheName != staticCacheName;
-        }).map(function(cacheName) {
-          return caches.delete(cacheName);
-        })
-      );
-    })
-  );*/
-/*});
-*/
+//Fetch and serve opened cache 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
     caches.match(event.request).then(function(response) {
@@ -51,11 +36,13 @@ self.addEventListener('fetch', function(event) {
         return response;
         } else {
            return fetch(event.request).then(function (response) {
+            //cache a copy of it
             let responseClone = response.clone();
             caches.open(staticCache).then(function (cache){
               cache.put(event.request, responseClone);
             });
           return response;
+          //catch error
         }).catch(function () {
           console.log('Nothing to show');
         });
