@@ -30,5 +30,5 @@ This repository uses [leafletjs](https://leafletjs.com/) with [Mapbox](https://w
 [MDN demo]https://mdn.github.io/sw-test/
 [Wittr]https://github.com/jakearchibald/wittr/
 [Doug Brown Walkthrough]https://www.youtube.com/watch?v=92dtrNU1GQc
-
+[Google Lab]https://developers.google.com/web/ilt/pwa/lab-caching-files-with-service-worker#7_delete_outdated_caches
 

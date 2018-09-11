@@ -55,6 +55,7 @@ self.addEventListener('message', function(event) {
     self.skipWaiting();
   }
 });
+///////Google Lab solution to delete used caches//////////
 self.addEventListener('activate', event => {
   console.log('Activating new service worker...');
 
