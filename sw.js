@@ -1,10 +1,9 @@
-var staticCache = 'restaurants-v1';
+var staticCacheName = 'restaurants-v1';
 
 self.addEventListener('install', function(event) {
 
   event.waitUntil(
-    caches.open(staticCache).then(function(cache) {
-      //activate
+    caches.open(staticCacheName).then(function(cache) {
       return cache.addAll([
         '/',
         '/index.html',
@@ -28,6 +27,7 @@ self.addEventListener('install', function(event) {
     })
   );
 });
+
 //Fetch and serve opened cache 
 self.addEventListener('fetch', function(event) {
   event.respondWith(
@@ -38,7 +38,7 @@ self.addEventListener('fetch', function(event) {
            return fetch(event.request).then(function (response) {
             //cache a copy of it
             let responseClone = response.clone();
-            caches.open(staticCache).then(function (cache){
+            caches.open(staticCacheName).then(function (cache){
               cache.put(event.request, responseClone);
             });
           return response;
@@ -54,4 +54,21 @@ self.addEventListener('message', function(event) {
   if (event.data.action === 'skipWaiting') {
     self.skipWaiting();
   }
+});
+self.addEventListener('activate', event => {
+  console.log('Activating new service worker...');
+
+  const cacheWhitelist = [staticCacheName];
+
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cacheName => {
+          if (cacheWhitelist.indexOf(cacheName) === -1) {
+            return caches.delete(cacheName);
+          }
+        })
+      );
+    })
+  );
 });
